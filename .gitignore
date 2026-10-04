@@ -1,0 +1,16 @@
+/*.html
+/*_files/
+
+*.zip
+*.xpi
+*.crx
+*.pem
+web-ext-artifacts/
+
+node_modules/
+
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

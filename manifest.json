@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Kinopoisk Shortcut",
+  "version": "1.0.0",
+  "description": "Adds a button to Kinopoisk film pages that opens the same film on another site.",
+  "content_scripts": [
+    {
+      "matches": ["https://www.kinopoisk.ru/*"],
+      "js": ["config.js", "target.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
