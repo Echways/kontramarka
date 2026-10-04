@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { buildTargetUrl } = require('../target.js');
+const { buildTargetUrl } = require('../src/target.js');
 
 const ORIGIN = 'https://www.kinokino.win';
 

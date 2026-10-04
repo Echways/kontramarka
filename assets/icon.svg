@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <mask id="ticket">
+    <rect x="10" y="6" width="108" height="116" rx="22" fill="#fff"/>
+    <circle cx="10" cy="84" r="11"/>
+    <circle cx="118" cy="84" r="11"/>
+  </mask>
+  <g mask="url(#ticket)">
+    <path fill="#0f3d2e" d="M0 0h128v84H0z"/>
+    <path fill="#eadcb6" d="M0 84h128v44H0z"/>
+    <path stroke="#0f3d2e" stroke-opacity=".4" stroke-width="4" stroke-dasharray="8 7" d="M28 84h72"/>
+  </g>
+  <path fill="#f7f3e8" d="M50 24v42l34-21z"/>
+</svg>

@@ -21,9 +21,11 @@ jobs:
       - name: Build package
         run: |
           version="${TAG#v}"
-          jq --arg v "$version" '.version = $v' manifest.json > manifest.tmp
-          mv manifest.tmp manifest.json
-          zip "kinopoisk-shortcut-$version.zip" manifest.json config.js target.js content.js content.css LICENSE
+          package="$PWD/kinopoisk-shortcut-$version.zip"
+          jq --arg v "$version" '.version = $v' src/manifest.json > manifest.tmp
+          mv manifest.tmp src/manifest.json
+          (cd src && zip -r "$package" .)
+          zip "$package" LICENSE
 
       - name: Publish release
         run: |
