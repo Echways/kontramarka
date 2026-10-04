@@ -21,7 +21,7 @@ jobs:
       - name: Build package
         run: |
           version="${TAG#v}"
-          package="$PWD/kinopoisk-shortcut-$version.zip"
+          package="$PWD/kontramarka-$version.zip"
           jq --arg v "$version" '.version = $v' src/manifest.json > manifest.tmp
           mv manifest.tmp src/manifest.json
           (cd src && zip -r "$package" .)
@@ -30,7 +30,7 @@ jobs:
       - name: Publish release
         run: |
           if gh release view "$TAG" > /dev/null 2>&1; then
-            gh release upload "$TAG" kinopoisk-shortcut-*.zip --clobber
+            gh release upload "$TAG" kontramarka-*.zip --clobber
           else
-            gh release create "$TAG" kinopoisk-shortcut-*.zip --generate-notes
+            gh release create "$TAG" kontramarka-*.zip --generate-notes
           fi

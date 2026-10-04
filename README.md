@@ -1,4 +1,4 @@
-# kinopoisk-shortcut
+# kontramarka
 
 ![Кнопка-билет «Смотреть, 0 ₽»: в покое и с надорванным корешком при наведении](assets/button.png)
 
@@ -11,8 +11,8 @@
 
 ## Установка
 
-Скачать `kinopoisk-shortcut-*.zip` со страницы
-[релизов](https://github.com/Echways/kinopoisk-shortcut/releases/latest).
+Скачать `kontramarka-*.zip` со страницы
+[релизов](https://github.com/Echways/kontramarka/releases/latest).
 
 - **Chrome, Brave, Яндекс Браузер, Edge:** распаковать архив, открыть
   `chrome://extensions` (в Brave — `brave://extensions`), включить «Режим
@@ -26,17 +26,3 @@
 В [config.js](src/config.js): `label` — текст на билете, `price` — надпись на
 корешке, `targetOrigin` — сайт, `openInNewTab` — открывать ли в новой вкладке.
 После правки обновить расширение и перезагрузить вкладку.
-
-## Разработка
-
-Расширение целиком лежит в [src/](src/) — эту папку и нужно выбирать при
-загрузке распакованного расширения из клона репозитория. Сборки нет.
-
-- [target.js](src/target.js) — из адреса страницы Кинопоиска строит адрес на
-  другом сайте; покрыт тестами: `node --test`.
-- [content.js](src/content.js) — собирает билет и держит его рядом с кнопкой
-  «Смотреть», пока Кинопоиск перерисовывает страницу.
-- [content.css](src/content.css) — внешний вид и анимации билета.
-- [assets/icon.svg](assets/icon.svg) — исходник иконок из `src/icons/`.
-
-Релиз собирается сам, когда в репозиторий приходит тег `v*`.
