@@ -1,0 +1,63 @@
+[data-kp-shortcut] {
+  flex: 0 0 auto;
+}
+
+[data-kp-shortcut]:not([class]):not(:last-child) {
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 1279px) {
+  [class*="styles_buttonsContainer__"]:has(> [data-kp-shortcut]) {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+}
+
+a.kp-shortcut {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 5.2rem;
+  max-height: 5.2rem;
+  padding: 1.4rem 2.6rem 1.4rem 2.2rem;
+  border-radius: 5.2rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.8rem;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #00a35c 69.93%, #a4d600 100%);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+a.kp-shortcut:hover,
+a.kp-shortcut:focus-visible {
+  color: #fff;
+  background: linear-gradient(135deg, #009654 69.91%, #96c400 100%);
+  transform: scale(1.05);
+}
+
+a.kp-shortcut:focus-visible {
+  outline: 2px solid #5fe3a1;
+  outline-offset: 2px;
+}
+
+a.kp-shortcut:active {
+  transform: scale(0.98);
+}
+
+.kp-shortcut__icon {
+  flex: 0 0 2.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-right: 0.8rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.kp-shortcut {
+    transition: none;
+  }
+}

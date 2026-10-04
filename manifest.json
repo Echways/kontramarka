@@ -6,6 +6,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.kinopoisk.ru/*"],
+      "css": ["content.css"],
       "js": ["config.js", "target.js", "content.js"],
       "run_at": "document_idle"
     }

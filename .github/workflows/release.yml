@@ -23,7 +23,7 @@ jobs:
           version="${TAG#v}"
           jq --arg v "$version" '.version = $v' manifest.json > manifest.tmp
           mv manifest.tmp manifest.json
-          zip "kinopoisk-shortcut-$version.zip" manifest.json config.js target.js content.js LICENSE
+          zip "kinopoisk-shortcut-$version.zip" manifest.json config.js target.js content.js content.css LICENSE
 
       - name: Publish release
         run: |

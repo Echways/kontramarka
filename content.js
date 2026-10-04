@@ -3,76 +3,65 @@
 
   const MARK = 'data-kp-shortcut';
   const SVG_NS = 'http://www.w3.org/2000/svg';
-  const CONTAINER = 'main [class*="styles_buttonsContainer__"]';
+  const CONTAINER = '[class*="styles_buttonsContainer__"]';
   const SLOT = ':scope > [class*="styles_button__"]';
-  const BUTTON = 'button[class*="style_button__"]';
+  const WATCH = '[class*="watch-online-button"], [data-test-id="Watch"]';
 
-  const dropClass = (className, part) =>
-    className.split(/\s+/).filter((name) => !name.includes(part)).join(' ');
-
-  function createIcon(className) {
-    const icon = document.createElement('span');
-    icon.className = className;
+  function createIcon() {
     const svg = document.createElementNS(SVG_NS, 'svg');
-    svg.setAttribute('width', '24');
-    svg.setAttribute('height', '24');
+    svg.setAttribute('class', 'kp-shortcut__icon');
     svg.setAttribute('viewBox', '0 0 24 24');
     svg.setAttribute('fill', 'currentColor');
     svg.setAttribute('aria-hidden', 'true');
     const path = document.createElementNS(SVG_NS, 'path');
-    path.setAttribute('d', 'M7 4v16l13-8z');
+    path.setAttribute('d', 'M6 3.375 21 12 6 20.625V3.375Z');
     svg.append(path);
-    icon.append(svg);
-    return icon;
+    return svg;
   }
 
   function createSlot(container, href) {
-    const nativeSlot = container.querySelector(SLOT);
-    const nativeButton =
-      container.querySelector(`${SLOT} ${BUTTON}:not([class*="onlyIcon"])`) ||
-      container.querySelector(`${SLOT} ${BUTTON}`);
-    if (!nativeSlot || !nativeButton) return null;
-
     const link = document.createElement('a');
     link.href = href;
-    link.className = dropClass(nativeButton.className, 'onlyIcon');
+    link.className = 'kp-shortcut';
     if (OPEN_IN_NEW_TAB) {
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
     }
-
-    const nativeIcon = container.querySelector(`${SLOT} [class*="style_iconLeft__"]`);
-    if (nativeIcon) {
-      link.append(createIcon(nativeIcon.className));
-    } else {
-      link.className = dropClass(link.className, 'withIconLeft');
-    }
-    link.append(LABEL);
+    link.append(createIcon(), LABEL);
 
     const slot = document.createElement('div');
-    slot.className = nativeSlot.className;
+    const nativeSlot = container.querySelector(SLOT);
+    if (nativeSlot) slot.className = nativeSlot.className;
     slot.setAttribute(MARK, '');
     slot.append(link);
     return slot;
   }
 
+  function place(container, slot) {
+    let anchor = container.querySelector(WATCH);
+    while (anchor && anchor.parentElement !== container) anchor = anchor.parentElement;
+    if (slot.parentElement === container && slot.previousElementSibling === anchor) return;
+    container.insertBefore(slot, anchor ? anchor.nextSibling : container.firstChild);
+  }
+
   function sync() {
     const href = buildTargetUrl(location.href, TARGET_ORIGIN);
-    const container = href && document.querySelector(CONTAINER);
-    const existing = document.querySelector(`[${MARK}]`);
+    const container =
+      href && (document.querySelector(`main ${CONTAINER}`) || document.querySelector(CONTAINER));
+    let slot = document.querySelector(`[${MARK}]`);
 
     if (!container) {
-      existing?.remove();
+      slot?.remove();
       return;
     }
-    if (existing?.parentElement === container) {
-      const link = existing.querySelector('a');
-      if (link.href !== href) link.href = href;
-      return;
+    if (slot && slot.parentElement !== container) {
+      slot.remove();
+      slot = null;
     }
-    existing?.remove();
-    const slot = createSlot(container, href);
-    if (slot) container.append(slot);
+    slot ||= createSlot(container, href);
+    const link = slot.querySelector('a');
+    if (link.href !== href) link.href = href;
+    place(container, slot);
   }
 
   let scheduled = false;
